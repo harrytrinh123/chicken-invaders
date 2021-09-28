@@ -6,7 +6,7 @@ from pygame import mixer
 
 class Chicken:
     def __init__(self):
-        self.imageEnemy = pygame.image.load('chicken.gif').convert_alpha()
+        self.imageEnemy = pygame.image.load('./include/chicken.gif').convert_alpha()
         self.x = random.randint(0, 736)
         self.y = random.randint(50, 150)
         self.x_change = 0.1
@@ -34,7 +34,7 @@ class Chicken:
         self.egg.y = self.y + 30
 class Egg:
     def __init__(self, x, y):
-        self.image = pygame.image.load('egg.png').convert_alpha()
+        self.image = pygame.image.load('./include/egg.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (20,20))
         self.x = x
         self.y = y
@@ -44,7 +44,7 @@ class Egg:
         screen.blit(self.image, (self.x, self.y))
     def isCollistionPlayer(self, playerX, playerY):
         distance = math.sqrt(math.pow(self.x - playerX, 2) + (math.pow(self.y - playerY, 2)))
-        if distance < 18:
+        if distance < 17:
             return True
         else:
             return False
@@ -52,7 +52,7 @@ class Egg:
 
 class Player:
     def __init__(self):
-        self.imageEnemy = pygame.image.load('ufo.png').convert_alpha()
+        self.imageEnemy = pygame.image.load('./include/ufo.png').convert_alpha()
         self.imageEnemy = pygame.transform.scale(self.imageEnemy, (60, 60))
         self.x = 370
         self.y = 480
@@ -70,7 +70,7 @@ class Player:
 
 class Bullet:
     def __init__(self) -> None:
-        self.bulletImg = pygame.image.load('bullet.png').convert_alpha()
+        self.bulletImg = pygame.image.load('./include/bullet.png').convert_alpha()
         self.bulletImg = pygame.transform.scale(self.bulletImg, (20,20))
         self.x = 0
         self.y = 480
@@ -92,7 +92,7 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 # Background
-background = pygame.image.load('background.png').convert_alpha()
+background = pygame.image.load('./include/background.png').convert_alpha()
 background = pygame.transform.scale(background, (1024,768))
 
 # initialization character
@@ -149,7 +149,7 @@ while running:
                 player.x_change += 0.3
             if event.key == pygame.K_SPACE:
                 if bullet.state == 'ready':
-                    bulletSound = mixer.Sound("laser.wav")
+                    bulletSound = mixer.Sound("./include/laser.wav")
                     bulletSound.play()
                     bullet.set_distance(player.x + 6)
                     bullet.state = 'fire'
@@ -183,7 +183,7 @@ while running:
             chickens[i].x = random.randint(0, 736)
             chickens[i].y = random.randint(50, 150)
             score_value += 1
-            explosionSound = mixer.Sound("quad.mp3")
+            explosionSound = mixer.Sound("./include/quad.mp3")
             explosionSound.play()
 
         collistion_egg = chickens[i].egg.isCollistionPlayer(player.x, player.y)
@@ -196,7 +196,7 @@ while running:
         chickens[i].egg.drop()
     
     if status_game is "over" and is_sound:
-        overSound = mixer.Sound("game-over.wav")
+        overSound = mixer.Sound("./include/game-over.wav")
         overSound.play()
         is_sound = False
     show_score(10, 10)
